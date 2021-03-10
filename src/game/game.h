@@ -1,6 +1,5 @@
 #pragma once
 
-#include "quad.h"
 #include "world.h"
 #include "renderer.h"
 

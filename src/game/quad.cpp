@@ -20,21 +20,26 @@ AQuad::AQuad()
   m_BlueFlyingParticle = AddComponent<SpriteComponent>("Blue Particle Component");
   m_BlueFlyingParticle->SetColor(0, 0, 255, 255);
   m_BlueFlyingParticle->AttachTo(m_QuadSpriteComponent);
+}
 
-  m_InputComponent = AddComponent<InputComponent>("Input Component");
+void AQuad::SetLeftMovementScale(const float scale)
+{
+  m_MovementComponent->SetLeftMovementScale(scale);
+}
 
-  m_InputComponent->SetKeyBinding('a', -1.0f, [&](float v) {
-    m_MovementComponent->SetLeftMovementScale(v);
-  });
-  m_InputComponent->SetKeyBinding('d', +1.0f, [&](float v) {
-    m_MovementComponent->SetRightMovementScale(v);
-  });
-  m_InputComponent->SetKeyBinding('w', -1.0f, [&](float v) {
-    m_MovementComponent->SetUpMovementScale(v);
-  });
-  m_InputComponent->SetKeyBinding('s', +1.0f, [&](float v) {
-    m_MovementComponent->SetBotMovementScale(v);
-  });
+void AQuad::SetRightMovementScale(const float scale)
+{
+  m_MovementComponent->SetRightMovementScale(scale);
+}
+
+void AQuad::SetUpMovementScale(const float scale)
+{
+  m_MovementComponent->SetUpMovementScale(scale);
+}
+
+void AQuad::SetBotMovementScale(const float scale)
+{
+  m_MovementComponent->SetBotMovementScale(scale);
 }
 
 void AQuad::Tick(const float dt)

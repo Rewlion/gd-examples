@@ -2,7 +2,7 @@
 
 #include "actor_component.h"
 
-class MovementComponent : public ActorComponent
+class MovementComponent final : public ActorComponent
 {
 public:
   MovementComponent(Actor* owner, const std::string& name);

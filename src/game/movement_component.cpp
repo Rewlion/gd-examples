@@ -15,7 +15,12 @@ MovementComponent::MovementComponent(Actor* owner, const std::string& name)
 void MovementComponent::Tick(const float dt)
 {
   glm::vec2 movementScale = glm::vec2{ m_LeftMovementScale + m_RightMovementScale, m_UpMovementScale + m_BotMovementScale };
-  glm::vec2 dr = (m_Velocity * dt) * movementScale;
-  glm::vec2 r = m_Owner->GetWorldLocation();
-  m_Owner->SetWorldLocation(r + dr);
+  const bool hasMovement = movementScale != glm::vec2{ 0.0f, 0.0f };
+
+  if (hasMovement)
+  {
+    glm::vec2 dr = (m_Velocity * dt) * movementScale;
+    glm::vec2 r = m_Owner->GetWorldLocation();
+    m_Owner->SetWorldLocation(r + dr);
+  }
 }

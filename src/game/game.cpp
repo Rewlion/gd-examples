@@ -1,4 +1,6 @@
 #include "game.h"
+#include "quad_controller.h"
+#include "quad.h"
 
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
@@ -35,6 +37,9 @@ void Game::InitializeLevel()
 {
   AQuad* quad = m_World.SpawnActor<AQuad>();
   quad->Initialize(m_Settings.level.quadLocation, m_Settings.level.quadSize, m_Settings.level.quadColor, m_Settings.level.quadVelocity);
+
+  AQuadController* controller = m_World.SpawnActor<AQuadController>();
+  controller->Possess(quad);
 }
 
 void Game::Start()
