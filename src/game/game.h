@@ -1,6 +1,8 @@
 #pragma once
 
-#include "quad_pawn.h"
+#include "quad.h"
+#include "world.h"
+#include "renderer.h"
 
 #include <memory>
 
@@ -22,10 +24,10 @@ public:
 
     struct Level
     {
+      glm::vec2 quadLocation = glm::vec2{ 0.0f, 0.0f };
+      glm::vec2 quadSize = glm::vec2{ 0.0f, 0.0f };
+      glm::i8vec4 quadColor = glm::i8vec4{ 0,0,0,0 };
       float quadVelocity = 0.0f;
-      float quadXStart = 0;
-      float quadYStart = 0;
-      float quadSide = 0;
     } level;
   };
 
@@ -34,22 +36,18 @@ public:
   ~Game();
 
   void Initialize(const Settings& settings);
-
+  void InitializeLevel();
   void Start();
 
 private:
   void Tick(const float dt);
-  void ProcessInput();
-  void MoveQuad(const float dt);
-  void RenderFrame();
 
 private:
   Settings m_Settings;
   SDL_Window* m_Window;
-  SDL_Renderer* m_Renderer;
 
-  QuadPawn m_Quad;
-  bool m_IsMovingLeft, m_IsMovingRight;
+  World m_World;
+  Renderer m_Renderer;
 
   bool m_ShouldGameStop;
 };

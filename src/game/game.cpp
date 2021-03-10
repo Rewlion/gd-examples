@@ -9,9 +9,6 @@
 
 Game::Game()
   : m_Window(nullptr)
-  , m_Renderer(nullptr)
-  , m_IsMovingLeft(false)
-  , m_IsMovingRight(false)
   , m_ShouldGameStop(false)
 {
 }
@@ -25,10 +22,19 @@ void Game::Initialize(const Settings& settings)
 {
   m_Settings = settings;
 
-  if (SDL_CreateWindowAndRenderer(settings.window.width, settings.window.height, 0, &m_Window, &m_Renderer))
+  SDL_Renderer* sdlRenderer = nullptr;
+  if (SDL_CreateWindowAndRenderer(settings.window.width, settings.window.height, 0, &m_Window, &sdlRenderer))
     throw std::runtime_error(SDL_GetError());
 
-  m_Quad.Initialize(settings.level.quadXStart, settings.level.quadYStart, settings.level.quadSide, settings.level.quadVelocity);
+  m_Renderer.Initialize(sdlRenderer, &m_World);
+
+  InitializeLevel();
+}
+
+void Game::InitializeLevel()
+{
+  AQuad* quad = m_World.SpawnActor<AQuad>();
+  quad->Initialize(m_Settings.level.quadLocation, m_Settings.level.quadSize, m_Settings.level.quadColor, m_Settings.level.quadVelocity);
 }
 
 void Game::Start()
@@ -46,59 +52,7 @@ void Game::Start()
 
 void Game::Tick(const float dt)
 {
-  ProcessInput();
-  MoveQuad(dt);
-  RenderFrame();
+  m_World.Tick(dt);
+  m_Renderer.Tick(dt);
 }
 
-void Game::ProcessInput()
-{
-  SDL_Event e;
-  while (SDL_PollEvent(&e))
-  {
-    switch (e.key.keysym.sym)
-    {
-    case SDLK_a:
-    {
-      if (e.type == SDL_KEYDOWN)
-        m_IsMovingLeft = true;
-      else if (e.type == SDL_KEYUP)
-        m_IsMovingLeft = false;
-
-      break;
-    }
-
-    case SDLK_d:
-    {
-      if (e.type == SDL_KEYDOWN)
-        m_IsMovingRight = true;
-      else if (e.type == SDL_KEYUP)
-        m_IsMovingRight = false;
-
-      break;
-    }
-    }
-  }
-}
-
-void Game::MoveQuad(const float dt)
-{
-  const float dx = static_cast<float>(m_Quad.GetVelocity() * dt);
-
-  if (m_IsMovingLeft)
-    m_Quad.MoveRight(-1.0f * dx);
-  else if (m_IsMovingRight)
-    m_Quad.MoveRight(dx);
-}
-
-void Game::RenderFrame()
-{
-  SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 1);
-  SDL_RenderClear(m_Renderer);
-
-  SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 1);
-  SDL_Rect rect = m_Quad.GetSDLRect();
-  SDL_RenderDrawRect(m_Renderer, &rect);
-
-  SDL_RenderPresent(m_Renderer);
-}

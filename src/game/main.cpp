@@ -10,10 +10,10 @@ int main()
     Game::Settings settings;
     settings.window.height = 480;
     settings.window.width = 640;
-    settings.level.quadSide = 20.0f;
+    settings.level.quadSize = { 20.0f, 20.0f };
     settings.level.quadVelocity = 300.0f;
-    settings.level.quadXStart = 320.0f;
-    settings.level.quadYStart = 240.0f;
+    settings.level.quadLocation = { 200, 200 };
+    settings.level.quadColor = { 255,255,255,255 };
 
     Game game;
     game.Initialize(settings);
