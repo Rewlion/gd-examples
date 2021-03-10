@@ -34,6 +34,8 @@ public:
     return comps;
   }
 
+  bool CheckForCollisions(Actor*);
+
 private:
   std::vector<std::unique_ptr<Actor>> m_OwnedActors;
 };

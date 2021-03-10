@@ -10,6 +10,8 @@ struct SDL_Renderer;
 
 class QuadPawn;
 
+World* GetWorld();
+
 class Game
 {
 public:

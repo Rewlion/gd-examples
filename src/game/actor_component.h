@@ -17,6 +17,11 @@ public:
     return m_Name;
   }
 
+  inline Actor* GetOwner()
+  {
+    return m_Owner;
+  }
+
 protected:
   std::string m_Name;
   Actor* const m_Owner;

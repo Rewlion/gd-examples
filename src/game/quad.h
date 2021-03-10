@@ -5,13 +5,13 @@
 class MovementComponent;
 class InputComponent;
 class SpriteComponent;
+class BoxCollisionComponent;
 
 class AQuad : public Actor
 {
 public:
   AQuad();
 
-  virtual void Tick(const float dt) override;
   void Initialize(const glm::vec2& location, const glm::ivec2& size, const glm::i8vec4& color, const float velocity);
 
   void SetLeftMovementScale(const float scale);
@@ -22,7 +22,5 @@ public:
 private:
   MovementComponent* m_MovementComponent;
   SpriteComponent* m_QuadSpriteComponent;
-
-  SpriteComponent* m_GreenFlyingParticle;
-  SpriteComponent* m_BlueFlyingParticle;
+  BoxCollisionComponent* m_BoxComponent;
 };

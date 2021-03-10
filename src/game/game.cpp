@@ -9,6 +9,13 @@
 #include <chrono>
 #include <stdexcept>
 
+World* worldSharePointer;
+
+World* GetWorld()
+{
+  return worldSharePointer;
+}
+
 Game::Game()
   : m_Window(nullptr)
   , m_ShouldGameStop(false)
@@ -30,6 +37,8 @@ void Game::Initialize(const Settings& settings)
 
   m_Renderer.Initialize(sdlRenderer, &m_World);
 
+  worldSharePointer = &m_World;
+
   InitializeLevel();
 }
 
@@ -40,6 +49,9 @@ void Game::InitializeLevel()
 
   AQuadController* controller = m_World.SpawnActor<AQuadController>();
   controller->Possess(quad);
+
+  AQuad* wall = m_World.SpawnActor<AQuad>();
+  wall->Initialize(m_Settings.level.quadLocation + glm::vec2{ 100, 0 }, m_Settings.level.quadSize, m_Settings.level.quadColor, m_Settings.level.quadVelocity);
 }
 
 void Game::Start()
