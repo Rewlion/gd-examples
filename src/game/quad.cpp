@@ -1,9 +1,9 @@
 #include "quad.h"
 
-#include "movement_component.h"
-#include "input_component.h"
-#include "sprite_component.h"
-#include "box_collision_component.h"
+#include <engine/movement_component.h>
+#include <engine/input_component.h>
+#include <engine/sprite_component.h>
+#include <engine/box_collision_component.h>
 
 #include <math.h>
 

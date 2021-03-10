@@ -1,6 +1,6 @@
 #pragma once
 
-#include "actor.h"
+#include <engine/actor.h>
 
 class MovementComponent;
 class InputComponent;

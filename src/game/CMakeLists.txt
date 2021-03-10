@@ -11,4 +11,4 @@ set_target_properties(GAME_EXE PROPERTIES
                         RUNTIME_OUTPUT_DIRECTORY "${RUNTIME_OUTPUT_DIRECTORY}"
                         VS_DEBUGGER_WORKING_DIRECTORY "${RUNTIME_OUTPUT_DIRECTORY}/Debug")
 
-target_link_libraries(GAME_EXE SDL2)
+target_link_libraries(GAME_EXE ENGINE_LIB)

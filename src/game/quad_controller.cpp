@@ -1,7 +1,7 @@
 #include "quad_controller.h"
-
-#include "input_component.h"
 #include "quad.h"
+
+#include <engine/input_component.h>
 
 AQuadController::AQuadController()
 {

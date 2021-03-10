@@ -24,6 +24,8 @@ link_directories("${SDL2_DEP_DIR}/x64")
 
 include_directories(
     "${DEP_DIR}"
+    "${CMAKE_SOURCE_DIR}/src"
 )
 
 add_subdirectory("${SRC_DIR}/game")
+add_subdirectory("${SRC_DIR}/engine")

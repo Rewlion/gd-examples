@@ -1,6 +1,6 @@
 #include "movement_component.h"
 
-#include "game.h"
+#include "engine.h"
 #include "actor.h"
 
 MovementComponent::MovementComponent(Actor* owner, const std::string& name)
@@ -24,7 +24,7 @@ void MovementComponent::Tick(const float dt)
     glm::vec2 r = m_Owner->GetWorldLocation();
 
     m_Owner->SetWorldLocation(r + dr);
-    if (GetWorld()->CheckForCollisions(m_Owner))
+    if (Engine::GetWorld()->CheckForCollisions(m_Owner))
       m_Owner->SetWorldLocation(r);
   }
 }
